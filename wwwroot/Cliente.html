@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="./css/site.css">
 
 </head>
+
+
 <body>
 
   <nav class="navbar bg-dark border-bottom border-body navbar-expand-lg" data-bs-theme="dark">
@@ -26,7 +28,7 @@
           <li class="nav-item">
             <a class="nav-link active" href="Index.html">Productos</a>
           </li>
-          <li class="nav-item"></li>
+          <li class="nav-item">
             <a class="nav-link active" href="Cliente.html">Clientes</a>
           </li>
         </ul>
@@ -46,7 +48,7 @@
         <tr>
           <th>Id</th>
           <th>Nombre</th>
-          <th>Cantidad</th>
+          <th>Apellido</th>
           <th>Dni</th>
           <th>Saldo</th>
           <th></th>
@@ -69,16 +71,19 @@
           <div class="modal-body">
             <div class="row">
               <label for="Nombre" class="form-label">Nombre</label>
-              <input type="text" id="Nombre" placeholder="Nombre del Producto" class="form-control">
+              <input type="text" id="Nombre" placeholder="Nombre del Cliente" class="form-control">
 
               <label for="Apellido" class="form-label">Apellido</label>
-              <input type="number" id="Apellido" class="form-control">
+              <input type="text" id="Apellido" placeholder="Apellido del Cliente" class="form-control">
 
               <label for="Dni" class="form-label">Dni</label>
               <input type="number" id="Dni" class="form-control">
 
               <label for="Saldo" class="form-label">Saldo</label>
               <input type="number" id="Saldo" class="form-control">
+
+              <p id="error" hidden></p>
+
             </div>
           </div>
           <div class="modal-footer">
@@ -99,24 +104,27 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <input type="number" id="IdProducto" class="form-control" readonly hidden>
+              <input type="number" id="IdCliente" class="form-control" readonly hidden>
 
               <label for="NombreEditar" class="form-label">Nombre</label>
               <input type="text" id="NombreEditar" placeholder="Nombre del Alumno" class="form-control">
 
               <label for="CantidadEditar" class="form-label">Apellido</label>
-              <input type="number" id="ApellidoEditar" class="form-control">
+              <input type="text" id="ApellidoEditar" class="form-control">
 
               <label for="PrecioVentaEditar" class="form-label">Dni</label>
               <input type="number" id="DniEditar" class="form-control">
 
               <label for="PrecioCompraEditar" class="form-label">Saldo</label>
               <input type="number" id="SaldoEditar" class="form-control">
+
+              <p id="error" hidden></p>
+
             </div>
           </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" onclick="EditarClientes();">Guardar</button>
+              <button type="button" class="btn btn-primary" onclick= "EditarCliente();">Guardar</button>
             </div>
           </div>
         </div>

@@ -65,16 +65,22 @@ function MostrarProductos(data) {
 // }
 
 function CrearProducto() {
-    // var nombreProd = document.getElementById("Nombre").value;
-    // if (nombreProd == "" || nombreProd == null) {
-    //     return mensajesError('#error', null, "Por favor ingrese un Nombre para el Producto.");
-    // }
+
+     var precioV = document.getElementById("PrecioVenta").value;
+     if (precioV == "" || precioV == null) {
+         return mensajesError('#error', null, "Por favor ingrese un Precio de Venta para el Producto.");
+     }
+
+     var precioC = document.getElementById("PrecioCompra").value;
+     if (precioC == "" || precioC == null) {
+         return mensajesError('#error', null, "Por favor ingrese un Precio de Compra para el Producto.");
+     }
 
     let producto = {
         nombreProducto: document.getElementById("Nombre").value,
         cantidad: document.getElementById("Cantidad").value,
-        precioVenta: document.getElementById("PrecioVenta").value,
-        precioCompra: document.getElementById("PrecioCompra").value,
+        precioVenta: parseInt(precioV),
+        precioCompra: parseInt(precioC),
     };
 
     fetch('https://localhost:7245/Productos',
@@ -88,7 +94,7 @@ function CrearProducto() {
     )
     .then(response => response.json())
     .then(data =>{
-        // if(data.status == undefined){
+         if(data.status == undefined){
             document.getElementById("Nombre").value = "";
             document.getElementById("Cantidad").value = 0;
             document.getElementById("PrecioVenta").value = 0;
@@ -96,9 +102,9 @@ function CrearProducto() {
 
             $('#modalAgregarProductos').modal('hide');
             ObtenerProductos();
-        // } else {
-        //     mensajesError('#error', data);
-        // }
+        } else {
+             mensajesError('#error', data);
+        }
             
     })
     .catch(error => console.log("Hubo un error al guardar el Producto nuevo, verifique el mensaje de error: ", error))
@@ -174,24 +180,24 @@ function EditarProducto() {
 }
 
 
-// function mensajesError(id, data, mensaje) {
-//     $(id).empty();
-//     if (data != null) {
-//         $.each(data.errors, function(index, item) {
-//             $(id).append(
-//                 "<ol>",
-//                 "<li>" + item + "</li>",
-//                 "</ol>"
-//             )
-//         })
-//     }
-//     else{
-//         $(id).append(
-//             "<ol>",
-//             "<li>" + mensaje + "</li>",
-//             "</ol>"
-//         )
-//     }
+function mensajesError(id, data, mensaje) {
+    $(id).empty();
+    if (data != null) {
+        $.each(data.errors, function(index, item) {
+            $(id).append(
+                "<ol>",
+                "<li>" + item + "</li>",
+                "</ol>"
+            )
+        })
+    }
+    else{
+        $(id).append(
+            "<ol>",
+            "<li>" + mensaje + "</li>",
+            "</ol>"
+        )
+    }
     
-//     $(id).attr("hidden", false);
-// }
+    $(id).attr("hidden", false);
+}
