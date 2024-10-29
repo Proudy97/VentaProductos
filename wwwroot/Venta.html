@@ -40,58 +40,52 @@
   </nav>
 
   <div class="container">
-    <h1>Clientes</h1>
+    <h1>Ventas</h1>
     <hr>
 
-    <button class="mt-3 mb-3 btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregarClientes">Agregar
-      Clientes</button>
+    <button class="mt-3 mb-3 btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAgregarVentas">Agregar
+      Venta</button>
 
     <table class="table table-dark table-striped">
       <thead>
         <tr>
           <th>Id</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Dni</th>
-          <th>Saldo</th>
+          <th>Fecha</th>
+          <th>Finalizada</th>
           <th></th>
           <th></th>
         </tr>
       </thead>
-      <tbody id="todosLosClientes"></tbody>
+      <tbody id="todasLasVentas"></tbody>
     </table>
 
 
 
 
     <!-- MODAL -->
-    <div id="modalAgregarClientes" class="modal fade" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+    <div id="modalAgregarVentas" class="modal fade" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Agregar Nuevo Cliente</h5>
+            <h5 class="modal-title">Agregar Nueva Venta</h5>
           </div>
           <div class="modal-body">
             <div class="row">
-              <label for="Nombre" class="form-label">Nombre</label>
-              <input type="text" id="Nombre" placeholder="Nombre del Cliente" class="form-control">
+                <input type="number" id="IdVenta" class="form-control" readonly hidden>
 
-              <label for="Apellido" class="form-label">Apellido</label>
-              <input type="text" id="Apellido" placeholder="Apellido del Cliente" class="form-control">
+                <label for="FechaVenta" class="form-label">Fecha De Venta</label>
+                <input type="datetime" id="FechaVenta" class="form-control" placeholder="Fecha de la Venta">
 
-              <label for="Dni" class="form-label">Dni</label>
-              <input type="number" id="Dni" class="form-control">
 
-              <label for="Saldo" class="form-label">Saldo</label>
-              <input type="number" id="Saldo" class="form-control">
-
+                <label for="Finalizada" class="form-label">Finalizada</label>
+                <input type="text" id="Finaliza" class="form-control" placeholder="Venta Finalizada">
               <p id="error" hidden></p>
 
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary" onclick="CrearClientes();">Guardar</button>
+            <button type="button" class="btn btn-primary" onclick="CrearVentas();">Guardar</button>
           </div>
         </div>
       </div>
@@ -99,35 +93,29 @@
 
 
     <!-- MODAL -->
-    <div id="modalEditarClientes" class="modal fade" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+    <div id="modalEditarVentas" class="modal fade" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Editar Cliente Existente</h5>
+            <h5 class="modal-title">Editar Venta Existente</h5>
           </div>
           <div class="modal-body">
             <div class="row">
-              <input type="number" id="IdCliente" class="form-control" readonly hidden>
+                <input type="number" id="IdVenta" class="form-control" readonly hidden>
 
-              <label for="NombreEditar" class="form-label">Nombre</label>
-              <input type="text" id="NombreEditar" placeholder="Nombre del Alumno" class="form-control">
+                <label for="FechaVentaEditar" class="form-label">Fecha De Venta</label>
+                <input type="datetime" id="FechaVentaEditar" class="form-control" placeholder="Fecha de la Venta">
 
-              <label for="CantidadEditar" class="form-label">Apellido</label>
-              <input type="text" id="ApellidoEditar" class="form-control">
 
-              <label for="PrecioVentaEditar" class="form-label">Dni</label>
-              <input type="number" id="DniEditar" class="form-control">
-
-              <label for="PrecioCompraEditar" class="form-label">Saldo</label>
-              <input type="number" id="SaldoEditar" class="form-control">
-
+                <label for="FinalizadaEditar" class="form-label">Finalizada</label>
+                <input type="text" id="FinalizadaEditar" class="form-control" placeholder="Venta Finalizada">
               <p id="error" hidden></p>
 
             </div>
           </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" onclick= "EditarCliente();">Guardar</button>
+              <button type="button" class="btn btn-primary" onclick= "EditarVenta();">Guardar</button>
             </div>
           </div>
         </div>
@@ -137,13 +125,13 @@
 
 
 
-    <script src="./js/Clientes.js"></script>
+    <script src="./js/Ventas.js"></script>
     <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-      window.onload = ObtenerClientes();
+      window.onload = ObtenerVentas();
     </script>
     
 </body>
