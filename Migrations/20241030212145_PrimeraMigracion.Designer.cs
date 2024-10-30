@@ -12,8 +12,8 @@ using VentaProductos.Models;
 namespace VentaProductos.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20241029002127_ModeloVentas")]
-    partial class ModeloVentas
+    [Migration("20241030212145_PrimeraMigracion")]
+    partial class PrimeraMigracion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,6 +85,9 @@ namespace VentaProductos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("FechaVenta")
                         .HasColumnType("datetime2");
 
@@ -93,7 +96,39 @@ namespace VentaProductos.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClienteId");
+
                     b.ToTable("Venta");
+                });
+
+            modelBuilder.Entity("VentaProductos.Models.VentaDetalle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VentaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VentasDetalle");
+                });
+
+            modelBuilder.Entity("VentaProductos.Models.Venta", b =>
+                {
+                    b.HasOne("VentaProductos.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
                 });
 #pragma warning restore 612, 618
         }

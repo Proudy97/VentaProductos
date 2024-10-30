@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/site.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/site.css">
 
 </head>
 
@@ -52,6 +54,8 @@
           <th>Id</th>
           <th>Fecha</th>
           <th>Finalizada</th>
+          <th>Cliente</th>
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -71,14 +75,17 @@
           </div>
           <div class="modal-body">
             <div class="row">
-                <input type="number" id="IdVenta" class="form-control" readonly hidden>
 
-                <label for="FechaVenta" class="form-label">Fecha De Venta</label>
-                <input type="datetime" id="FechaVenta" class="form-control" placeholder="Fecha de la Venta">
+              <label for="ClienteId" class="form-label">Cliente</label>
+              <select id="ClienteId" class="form-control form-select"></select>
+
+              <label for="FechaVenta" class="form-label">Fecha De Venta</label>
+              <input type="datetime-local" id="FechaVenta" class="form-control" placeholder="Fecha de la Venta"/>
 
 
-                <label for="Finalizada" class="form-label">Finalizada</label>
-                <input type="text" id="Finaliza" class="form-control" placeholder="Venta Finalizada">
+              <label for="Finalizada" class="form-label">Finalizada</label>
+              <input type="checkbox" id="Finalizada" class="form-control" placeholder="Venta Finalizada">
+
               <p id="error" hidden></p>
 
             </div>
@@ -101,38 +108,131 @@
           </div>
           <div class="modal-body">
             <div class="row">
-                <input type="number" id="IdVenta" class="form-control" readonly hidden>
+              <input type="number" id="IdVenta" class="form-control" readonly hidden>
 
-                <label for="FechaVentaEditar" class="form-label">Fecha De Venta</label>
-                <input type="datetime" id="FechaVentaEditar" class="form-control" placeholder="Fecha de la Venta">
+              <label for="ClienteIdEditar" class="form-label">Cliente</label>
+              <select id="ClienteIdEditar" class="form-control form-select"></select>
+
+              <label for="FechaVentaEditar" class="form-label">Fecha De Venta</label>
+              <input type="datetime" id="FechaVentaEditar" class="form-control" placeholder="Fecha de la Venta">
 
 
-                <label for="FinalizadaEditar" class="form-label">Finalizada</label>
-                <input type="text" id="FinalizadaEditar" class="form-control" placeholder="Venta Finalizada">
+              <label for="FinalizadaEditar" class="form-label">Finalizada</label>
+              <input type="checkbox" id="FinalizadaEditar" class="form-control" placeholder="Venta Finalizada">
               <p id="error" hidden></p>
 
             </div>
           </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" onclick= "EditarVenta();">Guardar</button>
-            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" onclick="EditarVenta();">Guardar</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modalVentaDetalle" class="modal fade" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalles de una Venta</h5>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-5">
+              <input type="number" id="IdVentaDetalle" class="form-control" readonly>
+
+              <label for="ProductoId" class="form-label">Producto</label>
+              <select id="ProductoId" class="form-control form-select"></select>
+
+              <button type="button" class="btn btn-primary mt-3 d-flex mx-auto"
+                onclick="GuardarDetalle();">Guardar</button>
+
+              <p id="errorDetalle" class="text-danger" hidden></p>
+            </div>
+
+            <div class="col-lg-7">
+              <table class="table table-dark table-striped">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="productoDetalles"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- MODALEditar -->
+  <div id="modalVentaDetalleEditar" class="modal fade" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalles de una Venta</h5>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-5">
+              <input type="number" id="IdVentaDetalle" class="form-control" readonly>
+
+              <label for="ProductoIdEditar" class="form-label">Producto</label>
+              <select id="ProductoIdEditar" class="form-control form-select"></select>
+
+              <button type="button" class="btn btn-primary mt-3 d-flex mx-auto"
+                onclick="GuardarDetalle();">Guardar</button>
+
+              <p id="errorDetalle" class="text-danger" hidden></p>
+            </div>
+
+            <div class="col-lg-7">
+              <table class="table table-dark table-striped">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="productoDetalles"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 
 
 
+  <script src="./js/Ventas.js"></script>
+  <script src="./js/common/ObtenerCliente.js"></script>
+  <script src="./js/common/ObtenerProducto.js"></script>
+  <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-    <script src="./js/Ventas.js"></script>
-    <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    window.onload = ObtenerVentas();
+    window.onload = ObtenerClientes();
+    window.onload = ObtenerProductos();
+  </script>
 
-    <script type="text/javascript">
-      window.onload = ObtenerVentas();
-    </script>
-    
 </body>
+
 </html>

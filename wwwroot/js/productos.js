@@ -66,6 +66,16 @@ function MostrarProductos(data) {
 
 function CrearProducto() {
 
+    var nombreP = document.getElementById("Nombre").value;
+    if (nombreP == "" || nombreP == null) {
+        return mensajesError('#error', null, "Por favor ingrese un Nombre para el Producto.");
+    }
+
+    var cantidadP = document.getElementById("Cantidad").value;
+    if (cantidadP == "" || cantidadP == null) {
+        return mensajesError('#error', null, "Por favor ingrese una Cantidad de Producto.");
+    }
+
      var precioV = document.getElementById("PrecioVenta").value;
      if (precioV == "" || precioV == null) {
          return mensajesError('#error', null, "Por favor ingrese un Precio de Venta para el Producto.");
@@ -99,7 +109,8 @@ function CrearProducto() {
             document.getElementById("Cantidad").value = 0;
             document.getElementById("PrecioVenta").value = 0;
             document.getElementById("PrecioCompra").value = 0;
-
+            $("#error").empty();
+            $("#error").attr("hidden", true);
             $('#modalAgregarProductos').modal('hide');
             ObtenerProductos();
         } else {
@@ -151,6 +162,26 @@ function BuscarProductoId(id) {
 function EditarProducto() {
     let idProducto = document.getElementById("IdProducto").value;
 
+    var nombreP = document.getElementById("NombreEditar").value;
+    if (nombreP == "" || nombreP == null) {
+        return mensajesError('#errorEditar', null, "Por favor ingrese un Nombre para el Producto.");
+    }
+
+    var cantidadP = document.getElementById("CantidadEditar").value;
+    if (cantidadP == "" || cantidadP == null) {
+        return mensajesError('#errorEditar', null, "Por favor ingrese una Cantidad de Producto.");
+    }
+
+     var precioV = document.getElementById("PrecioVentaEditar").value;
+     if (precioV == "" || precioV == null) {
+         return mensajesError('#errorEditar', null, "Por favor ingrese un Precio de Venta para el Producto.");
+     }
+
+     var precioC = document.getElementById("PrecioCompraEditar").value;
+     if (precioC == "" || precioC == null) {
+         return mensajesError('#errorEditar', null, "Por favor ingrese un Precio de Compra para el Producto.");
+     }
+
     let editarProducto = {
         id: idProducto,
         nombreProducto: document.getElementById("NombreEditar").value,
@@ -173,6 +204,8 @@ function EditarProducto() {
             document.getElementById("CantidadEditar").value = 0;
             document.getElementById("PrecioVentaEditar").value = 0;
             document.getElementById("PrecioCompraEditar").value = 0;
+            $("#errorEditar").empty();
+            $("#errorEditar").attr("hidden", true);
             $('#modalEditarProductos').modal('hide');
             ObtenerProductos();
     })
